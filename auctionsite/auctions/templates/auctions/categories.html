@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Categories</h2>
+    {% for category in categories %}
+
+    {{category.category}}
+
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="type">筛选:</label>
+            <input type="text" id="type" name="type">
+        </div>
+        <button type="submit">筛选</button>
+    </form>
+      
+    <table>
+        <tr>
+            <th>商品名</th>
+            <th>起始价格</th>
+            <th>商品介绍</th>
+            <th>图片</th>
+        </tr>
+        {% for good in goods %}
+        <tr>
+            <td><a class="nav-link" href="{% url 'watch_list' %}">{{ good.name }}</a></td>
+            <td>{{ good.price }}</td>
+            <td>{{ good.introduction }}</td>
+            <td><img src="{{ MEDIA_URL }}{{ good.picture.url }}" alt="picture"></td>
+        </tr>
+        {% endfor %}
+      </table>
+
+{% endblock %}

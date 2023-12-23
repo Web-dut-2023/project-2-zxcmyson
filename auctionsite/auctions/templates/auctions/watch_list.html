@@ -1,0 +1,50 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watch List</h2>
+    <table>
+        <tr>
+            <th>商品名</th>
+            <th>起始价格</th>
+            <th>商品介绍</th>
+            <th>图片</th>
+        </tr>
+        {% for good in goods %}
+        <tr>
+            <form method="post">
+            {% csrf_token %}
+            <td>{{ good.name }}</td>
+            <td>{{ good.price }}</td>
+            <td>{{ good.introduction }}</td>
+            <td><img src="{{ MEDIA_URL }}{{ good.picture.url }}" alt="picture"></td>
+            <input type="hidden" name="product_id" value="{{ good.id }}">
+            <div>
+                <label for="price">出价:</label>
+                <input type="text" id="price" name="price">
+                <button type="submit">Save</button>
+            </div>
+            {% for comment in comments %}
+            {% if comment.name == good.name %}
+            {{comment.article}}
+            {% endif %}
+            {% endfor %}
+
+                <div>
+                    <label for="article">评论一下：</label>
+                    <input type="text" id="article" name="article">
+                    <button type="submit">Save</button>
+                </div>
+                <form method="post" action="{% url 'watch' good.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="watch-button">加入监视</button>
+                </form>
+                <form method="post" action="{% url 'close' good.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="close-button">关闭</button>
+                </form>
+            </form>
+        </tr>
+        {% endfor %}
+      </table>
+
+{% endblock %}

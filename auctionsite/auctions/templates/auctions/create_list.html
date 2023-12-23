@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2>商品信息</h2>
+    <div>
+        <label for="name">商品名:</label>
+        <input type="text" id="name" name="name">
+    </div>
+    <br>
+    <div>
+        <label for="category">商品类别:</label>
+        <input type="text" id="category" name="category">
+    </div>
+    <br>
+    <div>
+        <label for="price">起始价格:</label>
+        <input type="text" id="price" name="price">
+    </div>
+    <br>
+    <div>
+        <label for="introduction">商品介绍:</label>
+        <input type="text" id="introduction" name="introduction">
+    </div>
+    <br>
+    <label>商品图片</label>
+    <div>
+      <input type="file" name="picture">
+    </div>
+    <br>
+    <button type="submit">Save</button>
+    </form>
+
+{% endblock %}
